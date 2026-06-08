@@ -43,4 +43,18 @@ public class InventoryManagementTest {
         assertEquals("Laptop Pro", im.inventory.get(3).name);
         assertEquals(70000.0, im.inventory.get(3).price);
     }
+    
+    //Search by ID logic Test
+    @Test
+    void testSearchByIdLogic() {
+        InventoryManagement im = new InventoryManagement();
+
+        Item item = new Item(4, "Phone", "Electronics", 8, 30000.0);
+        im.inventory.put(item.id, item);
+
+        Item result = im.inventory.get(4);
+
+        assertNotNull(result);
+        assertEquals("Phone", result.name);
+    }
 }
