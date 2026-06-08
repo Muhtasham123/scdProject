@@ -74,4 +74,49 @@ public class InventoryManagementTest {
 
         assertTrue(im.viewForPriceSearch.containsKey(100.0));
     }
+    
+    //Low stock map test
+    @Test
+    void testLowStockMap() {
+        InventoryManagement im = new InventoryManagement();
+
+        Item item = new Item(7, "Book", "Stationery", 2, 150);
+
+        im.inventory.put(7, item);
+
+        im.viewForLowStockSearch.putIfAbsent(2, new java.util.ArrayList<>());
+        im.viewForLowStockSearch.get(2).add(item);
+
+        assertTrue(im.viewForLowStockSearch.containsKey(2));
+    }
+    
+    
+    //Undo Stack test
+    @Test
+    void testUndoStack() {
+        InventoryManagement im = new InventoryManagement();
+
+        Item item = new Item(8, "Pen", "Stationery", 5, 50);
+
+        UndoRedoObj obj = new UndoRedoObj("insert", item);
+        im.undoStack.push(obj);
+
+        assertFalse(im.undoStack.isEmpty());
+        assertEquals("insert", im.undoStack.peek().operation);
+    }
+    
+    //Redo stack test
+    @Test
+    void testRedoStack() {
+        InventoryManagement im = new InventoryManagement();
+
+        Item item = new Item(9, "Notebook", "Stationery", 10, 100.0);
+
+        UndoRedoObj obj = new UndoRedoObj("delete", item);
+        im.redoStack.push(obj);
+
+        assertFalse(im.redoStack.isEmpty());
+        assertEquals("delete", im.redoStack.peek().operation);
+        assertEquals(9, im.redoStack.peek().item.id);
+    }
 }
