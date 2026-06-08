@@ -28,4 +28,19 @@ public class InventoryManagementTest {
 
         assertFalse(im.inventory.containsKey(2));
     }
+    
+    //Update Test
+    @Test
+    void testUpdateItem() {
+        InventoryManagement im = new InventoryManagement();
+
+        Item item = new Item(3, "Laptop", "Electronics", 2, 50000.0);
+        im.inventory.put(item.id, item);
+
+        Item updated = new Item(3, "Laptop Pro", "Electronics", 3, 70000.0);
+        im.inventory.put(3, updated);
+
+        assertEquals("Laptop Pro", im.inventory.get(3).name);
+        assertEquals(70000.0, im.inventory.get(3).price);
+    }
 }
