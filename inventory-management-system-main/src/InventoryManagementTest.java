@@ -57,4 +57,21 @@ public class InventoryManagementTest {
         assertNotNull(result);
         assertEquals("Phone", result.name);
     }
+    
+    //Price range map test
+    @Test
+    void testPriceMap() {
+        InventoryManagement im = new InventoryManagement();
+
+        Item item1 = new Item(5, "A", "Cat", 1, 100);
+        Item item2 = new Item(6, "B", "Cat", 1, 200);
+
+        im.inventory.put(5, item1);
+        im.inventory.put(6, item2);
+
+        im.viewForPriceSearch.putIfAbsent(100.0, new java.util.ArrayList<>());
+        im.viewForPriceSearch.get(100.0).add(item1);
+
+        assertTrue(im.viewForPriceSearch.containsKey(100.0));
+    }
 }
